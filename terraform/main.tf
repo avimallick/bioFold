@@ -165,7 +165,7 @@ resource "harvester_virtualmachine" "worker" {
   namespace            = var.namespace
   restart_after_update = true
   description          = "Worker node for Merizo batches"
-  cpu                  = 8
+  cpu                  = 6
   memory               = "32Gi"
   efi                  = true
   secure_boot          = false
