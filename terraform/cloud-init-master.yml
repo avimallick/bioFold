@@ -1,0 +1,38 @@
+#cloud-config
+package_update: true
+packages:
+  - qemu-guest-agent
+  - curl
+  - apt-transport-https
+  - ca-certificates
+
+ssh_authorized_keys:
+  - ${public_key_openssh}
+  - ${lecturer_key}
+
+write_files:
+  - path: /etc/salt/master.d/roots.conf
+    permissions: "0644"
+    content: |
+      file_roots:
+        base:
+          - /srv/salt
+      pillar_roots:
+        base:
+          - /srv/pillar
+  - path: /etc/salt/master.d/autoaccept.conf
+    permissions: "0644"
+    content: |
+      auto_accept: True
+
+runcmd:
+  - [systemctl, enable, --now, qemu-guest-agent.service]
+  - [systemctl, enable, --now, systemd-timesyncd]
+  - curl -fsSL https://bootstrap.saltproject.io -o /tmp/bootstrap_salt.sh
+  - sh /tmp/bootstrap_salt.sh -X
+  - apt-get install -y salt-master
+  - mkdir -p /srv/salt /srv/pillar
+  - systemctl enable --now salt-master
+  - systemctl restart salt-master
+
+final_message: "salt-master ready."
