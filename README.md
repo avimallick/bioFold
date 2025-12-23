@@ -1,9 +1,6 @@
 # 🧬 bioFold — Distributed Protein Domain Segmentation Pipeline
 
 **Author:** Avinash Mallick  
-**Coursework:** UCL MSc Software Systems Engineering — COMP0235 Engineering for Data Analysis 1
-**Repository:** [github.com/avimallick/bioFold](https://github.com/avimallick/bioFold)
-
 ---
 
 ## 📖 Overview
